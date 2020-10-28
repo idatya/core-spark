@@ -52,6 +52,8 @@ public class SparkSQLJavaExample {
     
     private static void readFromHdfs(SparkSession session) {
         Dataset<Row> df = session.read().text("hdfs://192.168.218.63:8020/user/impadmin/assessment/VZ_sample_100.csv");
+        Dataset<String> dfString = session.read().textFile("hdfs://192.168.218.63:8020/user/impadmin/assessment/VZ_sample_100.csv");
+        //dfString = session.read().text("hdfs://192.168.218.63:8020/user/impadmin/assessment/VZ_sample_100.csv"); //compile time error
         df.show();
         df.show(false);
     }
@@ -88,7 +90,11 @@ public class SparkSQLJavaExample {
                 integerEncoder);
         transformedDS.collect(); // Returns [2, 3, 4]
         transformedDS.show();
-
+        /* type safty exaple od dataset
+        primitiveDS = transformedDS;
+        Dataset<String> dfString = session.read().textFile("hdfs://192.168.218.63:8020/user/impadmin/assessment/VZ_sample_100.csv");
+        primitiveDS = dfString;
+        */
         // DataFrames can be converted to a Dataset by providing a class.
         // Mapping based on name
         String path = "/home/impadmin/aditya/data/person.json";

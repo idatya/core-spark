@@ -1,5 +1,6 @@
 package com.sh.spark.java8;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,11 +15,14 @@ public class SparkControlPartitionSizeLocally {
 				+ "a new nation conceived in liberty and "
 				+ "dedicated to the propostion that all men are created equal";
 		List<String> lst = Arrays.asList(StringUtils.split(input, ' '));
+		
+		List lst2 = new ArrayList();
+		lst2.add(1);
+		lst2.add("string");
 
-		for (int i = 1; i <= 30; i++) {
-			JavaRDD<String> rdd = sc.parallelize(lst, i);
+		for (int i = 1; i <= 30; i++) {			
+			JavaRDD rdd = sc.parallelize(lst2, i);
 			System.out.println(rdd.partitions().size());
 		}
-
 	}
 }
